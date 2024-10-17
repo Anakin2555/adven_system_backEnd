@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.ApplicationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.Application">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="activity_id" property="activityId" />
+        <result column="high_school_id" property="highSchoolId" />
+        <result column="college_pass" property="collegePass" />
+        <result column="university_pass" property="universityPass" />
+        <result column="reject" property="reject" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+    <resultMap id="CollegeActivityMap" type="com.example.mybatisplus.model.dto.CollegeActivity">
+        <result column="activity_id" property="activityId"/>
+        <result column="application_count" property="countApply"/>
+    </resultMap>
+
+    <select id="getCollegeToBeAudited" resultMap="CollegeActivityMap">
+        select activity_id,count(*) as application_count
+        from application
+        where is_deleted=0 AND college = #{college} AND college_pass=0 AND reject=0
+        group by activity_id
+    </select>
+
+    <select id="getUniversityToBeAudited" resultMap="CollegeActivityMap">
+        select activity_id,count(*) as application_count
+        from application
+        where  is_deleted=0 and reject=0 and (college_pass = 1 or college_pass =-1) and university_pass = 0
+        group by activity_id
+    </select>
+
+    <select id="listIdByActivityId" resultType="java.lang.Long">
+        select id from application where activity_id=#{activityId} and is_deleted=0
+    </select>
+
+</mapper>

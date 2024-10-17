@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.ActivityMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.Activity">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="information" property="information" />
+        <result column="banner" property="banner" />
+        <result column="begin" property="begin" />
+        <result column="end" property="end" />
+        <result column="apply_begin" property="applyBegin" />
+        <result column="apply_end" property="applyEnd" />
+        <result column="type" property="type" />
+        <result column="college_audit" property="collegeAudit" />
+        <result column="university_audit" property="universityAudit" />
+        <result column="rule" property="rule" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+    <insert id="saveAndGetId" useGeneratedKeys="true" keyProperty="id">
+        insert into activity(title,information,banner,cover,begin,end,apply_end,type,manner,college_audit,university_audit,is_deleted)
+        value(
+        #{title},#{information},#{banner},#{cover},#{begin},#{end},#{applyEnd},#{type},#{manner},#{collegeAudit},#{universityAudit},0
+        )
+    </insert>
+
+</mapper>

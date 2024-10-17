@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.FeedbackMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.Feedback">
+        <id column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="feedback" property="feedback"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <resultMap id="FeedbackMap" extends="BaseResultMap" type="com.example.mybatisplus.model.domain.Feedback">
+        <collection column="id" property="attachments" ofType="com.example.mybatisplus.model.domain.FeedbackAttachment">
+            <id column="attachment_id" property="id"/>
+            <result column="feedback_id" property="feedbackId"/>
+            <result column="attachment" property="attachment"/>
+            <result column="type" property="type"/>
+            <result column="a_is_deleted" property="isDeleted" />
+        </collection>
+
+    </resultMap>
+
+    <insert id="saveAndGetId" useGeneratedKeys="true" keyProperty="id">
+        insert into feedback(application_id,feedback,publish_date,is_deleted,user_id,activity_id,college,activity_name,user_name,type)
+        value (#{applicationId},#{feedback},#{publishDate},#{isDeleted},#{userId},#{activityId},#{college},#{activityName},#{userName},#{type})
+    </insert>
+
+    <select id="getByApplicationId" resultMap="FeedbackMap">
+        select f.id,f.application_id,f.feedback,f.is_deleted,a.id as attachment_id,a.feedback_id,a.attachment,a.type,a.is_deleted as a_is_deleted
+        from feedback f
+                 left join feedback_attachment a on f.id = a.feedback_id
+        where f.application_id = #{applicationId}
+          and f.is_deleted = 0
+    </select>
+
+    <select id="listIdByActivityId" resultType="java.lang.Long">
+        select id from feedback where activity_id = #{activityId} and is_deleted=0
+    </select>
+
+</mapper>
