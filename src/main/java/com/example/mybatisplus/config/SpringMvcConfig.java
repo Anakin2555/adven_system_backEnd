@@ -35,12 +35,11 @@ public class SpringMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry){
 
         List<String> excludePatterns = new ArrayList<>();
+        // 排除以下接口
         excludePatterns.add("/api/activity/getAllActivity");
         excludePatterns.add("/api/activity/getOne");
         excludePatterns.add("/file/**");
         excludePatterns.add("/api/verify/**");
-
-
 
         registry.addInterceptor(loginInterceptor()).addPathPatterns("/**").excludePathPatterns(excludePatterns);
     }

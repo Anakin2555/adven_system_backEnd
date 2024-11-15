@@ -52,9 +52,9 @@ public class Feedback extends Model<Feedback> {
     @TableField(exist = false)
     private List<FeedbackAttachment> attachments;
 
-    private  String userName;
+    private String userName;
 
-    private  String type;
+    private String type;
 
     @TableField(exist = false)
     private String region;

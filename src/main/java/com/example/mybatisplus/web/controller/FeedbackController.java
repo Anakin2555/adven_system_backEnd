@@ -127,6 +127,8 @@ public class FeedbackController {
                                        @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                                        Long activityId , String type) {
         Page<Feedback> page = new Page<>(pageNo,pageSize);
+        System.out.println("!!!!!!!!!!!!"+type);
+
         QueryWrapper<Feedback> wrapper = new QueryWrapper<Feedback>().eq("activity_id", activityId).orderByDesc("id");
         if(!type.isEmpty()){
             wrapper.eq("type",type);

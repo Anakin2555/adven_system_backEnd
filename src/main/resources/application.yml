@@ -11,12 +11,13 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
-  mail:
-    host: smtp.qq.com
-    port: 587
-    username: 2438972216@qq.com
-    password: hpcpspeursomebib
-    default-encoding: UTF-8
+#  mail:
+#    host: smtp.qq.com
+#    port: 465
+#    username: 919673126@qq.com
+#    password: tkfffafjdchvbcih
+#    default-encoding: UTF-8
+
 server:
   port: 9000
   servlet:

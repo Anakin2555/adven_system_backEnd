@@ -34,7 +34,5 @@ public class MailServiceImpl implements MailService {
             e.printStackTrace();
             return false;
         }
-
-
     }
 }

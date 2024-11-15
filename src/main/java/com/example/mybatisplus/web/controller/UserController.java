@@ -136,7 +136,7 @@ public class UserController {
 
     @RequestMapping(value = "/findPassword", method = RequestMethod.GET)
     @ResponseBody
-    public JsonResponse findPassword(String userName, @RequestParam("id") String identifyNumber) {
+    public JsonResponse findPassword(@RequestParam("userName") String userName, @RequestParam("id") String identifyNumber) {
 
         User user = userService.findPassword(userName, identifyNumber);
 
